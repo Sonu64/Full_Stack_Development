@@ -54,4 +54,21 @@ console.log("Final Price with Tax Added = " + addTax(basePrice, tax));
   console.log(`Welcome, User`);
 })();
 
+// Higher Order Function Discount Calculator
+const discountCalculator = (basePrice, discountAmount) => {
+  return () => {
+    return basePrice - discountAmount;
+  };
+};
+const calcFunction = discountCalculator(1000, 100);
+const finalPrice = calcFunction();
+console.log(finalPrice);
 
+// toUpperCase Transformer using HOF
+const toUpperCaseTransformer = (string) => {
+  return () => {
+    return string.toUpperCase();
+  };
+};
+const transformer = toUpperCaseTransformer("SoNu");
+console.log(transformer());
