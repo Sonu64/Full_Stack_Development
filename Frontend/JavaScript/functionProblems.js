@@ -29,3 +29,29 @@ const boom = () => {
   };
 };
 boom()();
+
+// Function to log even numbers in array
+const printEvens = (arr) => {
+  arr.forEach((num) => {
+    if (num % 2 === 0) {
+      console.log(num);
+    }
+  });
+};
+printEvens([1, 2, 3, 4, 5, 6]);
+
+// Pure function to add Tax
+const addTax = (basePrice, tax) => {
+  let totalPrice = basePrice + tax;
+  return totalPrice;
+};
+let basePrice = 230,
+  tax = 100;
+console.log("Final Price with Tax Added = " + addTax(basePrice, tax));
+
+// Immediately Invoked Function Expression (IIFE) to show welcome message.
+(() => {
+  console.log(`Welcome, User`);
+})();
+
+
