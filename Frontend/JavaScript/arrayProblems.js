@@ -78,4 +78,17 @@ sortedAges = ages.sort();
 sortedAges = sortedAges.reverse();
 console.log(sortedAges);
 
+// Destructure 1st 2 elements of an array and put remaining in an array
+const myNumbers = [1, 2, 3, 4, 5];
+let [firstNum, secondNum, ...remainingNums] = myNumbers;
+// Square Braces for Array Destructuring
+console.log(firstNum, secondNum, remainingNums);
+
+// Destructure Object Properties
+const userData = { username: "Sonu64", email: "sourakanti100@gmail.com" };
+const { username, email } = userData;
+// Curly Braces for Object Destructuring
+// Curly Braces to indicate that we are extracting named properties
+console.log(`Username: ${username}, E-Mail: ${email}`);
+
 
