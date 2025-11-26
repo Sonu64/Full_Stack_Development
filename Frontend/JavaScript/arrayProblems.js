@@ -65,3 +65,17 @@ console.log(grades.find((grade) => grade.grade == "A").name);
 if (grades.some((grade) => grade.grade == "F")) {
   console.log(`Yes, some students failed.`);
 }
+
+// Write a function to reverse an array
+const myReverse = (arr) => {
+  return arr.reverse();
+};
+console.log(myReverse([1, 2, 3, 4, 5]));
+
+// Sort ages in descending order
+ages = [22, 50, 30, 55, 33];
+sortedAges = ages.sort();
+sortedAges = sortedAges.reverse();
+console.log(sortedAges);
+
+
