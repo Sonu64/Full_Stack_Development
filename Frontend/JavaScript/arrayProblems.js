@@ -91,4 +91,7 @@ const { username, email } = userData;
 // Curly Braces to indicate that we are extracting named properties
 console.log(`Username: ${username}, E-Mail: ${email}`);
 
-
+// Use spread to copy and add new item
+const initialFruits = ["Mango", "Banana", "Guava"];
+const finalFruits = [...initialFruits, "Orange"];
+console.log(initialFruits + "\n" + finalFruits);
