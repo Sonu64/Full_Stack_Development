@@ -12,6 +12,7 @@ def index():
 def greet(username):
     return f"<h2 style='font-family:\"Century Gothic\";color:red;'>Welcome, {username} !<h2>"
 
+# Parsing Integers and Numbers
 @app.route("/add/<int:a>/<int:b>")
 def add(a, b):
     return f"<h2 style='font-family:\"Century Gothic\";color:blue;'>{a} + {b} = {a+b}</h2>"
