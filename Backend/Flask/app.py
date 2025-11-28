@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -16,6 +16,17 @@ def greet(username):
 @app.route("/add/<int:a>/<int:b>")
 def add(a, b):
     return f"<h2 style='font-family:\"Century Gothic\";color:blue;'>{a} + {b} = {a+b}</h2>"
+
+
+# URL Parameters from the request object, no need to pass variable names to function
+@app.route("/handleReqParams/")
+def greetParams():
+    if 'username' in request.args.keys() and 'favLang' in request.args.keys():
+        return f"<h3 style='font-family:\"Century Gothic\";color:#05875c;'>Hello {request.args.get('username')}, your Favorite Language is {request.args.get('favLang')}<h3>"
+    else: 
+        return f"<h4 style='font-family:\"Century Gothic\";color:red;'>Error ! Invalid Parameters !</h4>"
+
+
 
 
 if __name__ == "__main__":
