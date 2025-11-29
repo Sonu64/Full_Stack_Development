@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request as req
 
 app = Flask(__name__)
 
@@ -21,11 +21,22 @@ def add(a, b):
 # URL Parameters from the request object, no need to pass variable names to function
 @app.route("/handleReqParams/")
 def greetParams():
-    if 'username' in request.args.keys() and 'favLang' in request.args.keys():
-        return f"<h3 style='font-family:\"Century Gothic\";color:#05875c;'>Hello {request.args.get('username')}, your Favorite Language is {request.args.get('favLang')}<h3>"
+    if 'username' in req.args.keys() and 'favLang' in req.args.keys():
+        return f"<h3 style='font-family:\"Century Gothic\";color:#05875c;'>Hello {req.args.get('username')}, your Favorite Language is {req.args.get('favLang')}<h3>"
     else: 
         return f"<h4 style='font-family:\"Century Gothic\";color:red;'>Error ! Invalid Parameters !</h4>"
 
+
+# Handling multiple methods within One Route
+@app.route("/multiMethods/", methods=['GET', 'POST'])
+def handleMultiMethods():
+    if req.method == 'GET':
+        return f"<h3 style='font-family:\"Century Gothic\";color:red;'>A GET Request</h3>"
+    elif req.method == 'POST':
+        return f"<h3 style='font-family:\"Century Gothic\";color:red;'>A POST Request</h3>"
+    else:
+        return "You can never reach here"
+#Postman@11Sonu
 
 
 
