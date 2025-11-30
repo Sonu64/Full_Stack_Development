@@ -18,5 +18,14 @@ def filters():
     someText = "SouraKanti"
     return render_template("filters.html", someText=someText)
 
+# Custom Template Filters
+@app.template_filter("reverseString")
+def reverseString(s):
+    return s[::-1]
+
+@app.template_filter("repeatString")
+def repeatString(s, times):
+    return s * times;
+
 if __name__ == "__main__":  
     app.run(host="0.0.0.0", port=5555, debug=True)

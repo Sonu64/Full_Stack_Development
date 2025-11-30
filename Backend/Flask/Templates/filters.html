@@ -7,5 +7,7 @@ endblock %} {% block content %}
   <h2>Lowercase: {{ someText | lower }}</h2>
   <h2>Title Case: {{ someText | title }}</h2>
   <h2>X's replaced with *: {{ someText | replace('a', '*') }}</h2>
+  <h2>Reversed using custom filter : {{ someText | reverse }}</h2>
+  <h2>Repeating 6 times: {{ someText | repeatString(6) }}</h2>
 </body>
 {% endblock %}
