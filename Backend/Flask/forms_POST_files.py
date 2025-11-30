@@ -1,6 +1,10 @@
 from flask import Flask, request as req, render_template, url_for, redirect
+import pandas as pd
 
 app = Flask(__name__, template_folder = 'Templates')
+
+
+
 
 
 
@@ -34,7 +38,19 @@ def index():
 # Handling Forms with File Upload Capabilities
 @app.route("/file_upload", methods=["GET", "POST"])
 def file_upload():
-    return render_template("file_upload_form.html")
+    if req.method == "GET":
+        return render_template("file_upload_form.html")
+    elif req.method == "POST":
+        file = req.files.get('file')
+        if file.content_type == 'text/plain':
+            return file.read().decode()
+        elif file.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or file.content_type == 'application/vnd.ms-excel':
+            dataframe = pd.read_excel(file)
+            return dataframe.to_html()
+        else:
+            return "Invalid File Format !"
+    else:
+        return "Invalid Request"
 
 
 
