@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}FILE UPLOAD FORM PAGE{% endblock %}
+{% block content %}
+
+<body>
+  <h2>Upload Files</h2>
+</body>
+<form action = {{ url_for("file_upload") }} method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, text/plain">
+  <br><br><input type="submit" value="Upload File" />
+</form>
+{% endblock %}

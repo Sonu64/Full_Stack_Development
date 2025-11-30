@@ -2,6 +2,13 @@ from flask import Flask, request as req, render_template, url_for, redirect
 
 app = Flask(__name__, template_folder = 'Templates')
 
+
+
+
+
+
+
+# Basic Form Handling
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if req.method == "GET":
@@ -16,6 +23,27 @@ def index():
                 return "The same route receives a POST request, WRONG CREDENTIALS !"
         else:
             return "Incomplete Credentials"
+        
+        
+        
+        
+        
+        
+        
+        
+# Handling Forms with File Upload Capabilities
+@app.route("/file_upload", methods=["GET", "POST"])
+def file_upload():
+    return render_template("file_upload_form.html")
+
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5555, debug=True)
