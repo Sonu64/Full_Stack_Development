@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %} Applying Filters on passed vals {%
+endblock %} {% block content %}
+<body>
+  <h1>Filters page</h1>
+  <h2>Original Text: {{ someText }}</h2>
+  <h2>Uppercase: {{ someText | upper }}</h2>
+  <h2>Lowercase: {{ someText | lower }}</h2>
+  <h2>Title Case: {{ someText | title }}</h2>
+  <h2>X's replaced with *: {{ someText | replace('a', '*') }}</h2>
+</body>
+{% endblock %}

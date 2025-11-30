@@ -1,25 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fruits List</title>
-  </head>
-  <body>
-    <ul>
-      <!-- Jinja 2 Syntax, it is the rendering language for Flask -->
-      {% for fruit in fruits %} {% if fruit == 'Mango' %}
-      <li style="color: darkorange; font-weight: bold; font-size: 40px">
-        {{ fruit }}
-      </li>
-      <li style="color: darkorange; font-weight: bold; font-size: 40px">
-        {{ "Multi statements don't need brackets, end keyword is used" }}
-      </li>
-      {% else %}
-      <li style="color: green; font-weight: bold; font-size: 30px">
-        {{ fruit }}
-      </li>
-      {% endif %} {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "base.html" %} 
+{% block title %}Fruits List Page{% endblock %} 
+
+{% block content %}
+<body>
+  <ul>
+    <!-- Jinja 2 Syntax, it is the rendering language for Flask -->
+    {% for fruit in fruits %} {% if fruit == 'Mango' %}
+    <li style="color: darkorange; font-weight: bold; font-size: 40px">
+      {{ fruit }}
+    </li>
+    <li style="color: darkorange; font-weight: bold; font-size: 40px">
+      {{ "Multi statements don't need brackets, end keyword is used" }}
+    </li>
+    {% else %}
+    <li style="color: green; font-weight: bold; font-size: 30px">
+      {{ fruit }}
+    </li>
+    {% endif %} {% endfor %}
+  </ul>
+</body>
+{% endblock %}
