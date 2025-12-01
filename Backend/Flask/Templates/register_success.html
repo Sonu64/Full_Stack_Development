@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %}Register and go to Dashboard{%
+endblock %} {% block content %}
+
+<body>
+  <h2>Registration Successful !!</h2>
+  <p>Username: {{ username }}</p>
+  <p>E-Mail: {{ email }}</p>
+
+  <button id="jsonBtn">Append Greeting and Receive JSON Response</button>
+
+  <h3 id="greetingSection">__GREETING SECTION__</h3>
+</body>
+<script>
+  const btn = document.querySelector("#jsonBtn");
+  const username = "{{ username }}";
+  const email = "{{ email }}";
+
+  const jsonData = {
+    username: username,
+    email: email,
+    greeting: "Hello, " + username + "Your E-Mail is " + email + ".",
+  };
+
+  const TARGET_URL = "/show_greeting";
+
+  btn.addEventListener("click", async () => {
+    try {
+      const response = await fetch(TARGET_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonData),
+      });
+      // Check if the network response was OK (HTTP status 200-299)
+      if (!response.ok) {
+        throw new Error(`Server returned status code ${response.status}`);
+      }
+      // 3. Await the Parsing of the Server's Response (reads the confirmation)
+      // .json() is also an async operation, so use await
+      const serverResponse = await response.json();
+      console.log("Server response parsed (JSON Object):", serverResponse);
+      // Done! The data is sent and the confirmation is received.
+
+      document.querySelector("#greetingSection").innerText =
+        "Server Response : " + JSON.stringify(serverResponse);
+      document.querySelector("#greetingSection").innerText +=
+        "Actual Greeting in jsonData, which we send to API, which then writes the following line into a file: " +
+        jsonData.greeting;
+    } catch (error) {
+      // In a real environment, this catches network failures or HTTP errors
+      console.error(
+        "Simple Send Failed (Expected in this sandbox):",
+        error.message
+      );
+    }
+  });
+</script>
+
+{% endblock %}

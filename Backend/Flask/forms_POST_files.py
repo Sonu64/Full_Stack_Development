@@ -1,5 +1,8 @@
-from flask import Flask, request as req, render_template, url_for, redirect
+from flask import Flask, request as req, render_template, url_for, redirect, Response
 import pandas as pd
+import os
+import uuid
+from flask import send_from_directory, jsonify
 
 app = Flask(__name__, template_folder = 'Templates')
 
@@ -57,7 +60,110 @@ def file_upload():
 
 
 
+# A route to convert Excel to CSV and Immediately Download the CSV File on Form Submit
+@app.route("/convertor", methods=['GET', 'POST'])
+def convertExcelToCSV():
+    if req.method == 'GET':
+        return render_template('convertor.html')
+    elif req.method == 'POST':
+        file = req.files.get('file')
+        dataframe = pd.read_excel(file)
+        response = Response (
+            dataframe.to_csv(),
+            mimetype = 'text/csv',
+            headers = {
+                'Content-Disposition':'attachment; filename=result.csv'
+            }
+        )
+        return response
+        
+    else:
+        return 'Invalid Request !'
 
+
+
+
+
+
+
+
+
+
+# A Route to convert Excel to CSV, but take the user to a dedicated page with Download
+# button to download the CSV File.
+@app.route("/convertor2", methods=['GET', 'POST'])
+def convertExcelToCSV2():
+    if req.method == 'GET':
+        return render_template('convertor2.html')
+    elif req.method == 'POST':
+        file = req.files.get('file')
+        dataframe = pd.read_excel(file)
+        # Create a Downloads folder if it doesn't exist in the server
+        if not os.path.exists('downloads'):
+            os.makedirs('downloads')
+        # Create a random filename using UUID
+        filename = f'{uuid.uuid4()}.csv'
+        # Save the file temporarily in the Downloads folder as CSV
+        dataframe.to_csv(os.path.join('downloads', filename))
+        return render_template('download.html', filename=filename)
+    else:
+        return 'Invalid Request !'
+    
+    
+# Route that the Download button takes the user to, a GET request to this page from
+# the anchor tag using url_for() in the download.html page triggers the download.
+@app.route('/download/<filename>')
+def download(filename):
+    return send_from_directory('downloads', filename, download_name='result.csv')
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Route for Registration Form which sends data to register_success.html 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    if req.method == 'GET':
+        return render_template('json_user_register.html')
+    elif req.method == 'POST':
+        username = req.form.get('username')
+        email = req.form.get('email')
+        password = req.form.get('password')
+        return render_template('register_success.html', username=username, email=email, password=password)
+    else:
+        return "Invalid Request"
+
+
+# Route for greeting showcase
+@app.route("/show_greeting", methods=['POST'])
+def show_greeting():
+    if req.method == 'POST':
+        username = req.json.get('username')
+        greeting = req.json.get('greeting')
+        
+        with open('greetingJSON.txt', 'w') as file:
+            file.write(f"Username: {username}\nGreeting: {greeting}")
+        
+        return {'message':"Successfully wrote Greeting to File in your system."}
+    else:
+        return 'Invalid Request'
+        
+    
 
 
 

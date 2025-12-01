@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %}Excel to CSV convertor{% endblock %}
+{% block content %}
+
+<body>
+  <h2>Convert Excel to CSV and go to a seperate page to Download it.</h2>
+</body>
+<form action = {{ url_for("convertExcelToCSV2") }} method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+    <br><br>
+    <input type="submit" value="Convert >> " />
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %} {% block title %}Register and go to Dashboard{% endblock %}
+{% block content %}
+
+<body>
+  <h2>Sign Up Form</h2>
+  <form action = {{ url_for("register") }} method="post" enctype="multipart/form-data">
+    <input type="text" name="username" id="username" placeholder="Username" required><br><br>
+    <input type="email" name="email" id="email" placeholder="E-mail" required><br><br>
+    <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+    <input type="submit" value="Sign Up"><br>
+</form>
+</body>
+<script>
+    
+</script>
+
+{% endblock %}
