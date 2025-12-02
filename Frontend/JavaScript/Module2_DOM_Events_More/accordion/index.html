@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+      rel="stylesheet"
+    />
+    <script src="script.js"></script>
+    <title>Collapsible Accordion for FAQ</title>
+  </head>
+  <body>
+    <section id="faq">
+      <h2>FAQ</h2>
+      <div class="faq">
+        <div class="faq-header">
+          <h3>
+            How do I set up my budgets and what happens if I overspend a
+            category?
+          </h3>
+          <p class="toggleBtn">▶</p>
+        </div>
+        <p class="faq-text">
+          Setting up your budget is easy! Navigate to the "Budget" tab and use
+          the plus button to create a new category (e.g., Groceries,
+          Entertainment, Bills). You assign a monetary limit and a time period
+          (usually monthly). If you log an expense that exceeds the allocated
+          budget for that category, the app will instantly send you a
+          notification alert and the budget bar for that category will visually
+          change (e.g., turn red) on your dashboard. This provides real-time
+          feedback so you can adjust your spending immediately.
+        </p>
+      </div>
+      <div class="faq">
+        <div class="faq-header">
+          <h3>
+            Does the app automatically track my spending, or do I have to enter
+            every expense manually?
+          </h3>
+          <p class="toggleBtn">▶</p>
+        </div>
+        <p class="faq-text">
+          You must enter your expenses manually. The app is designed to give you
+          complete control and awareness of every transaction by requiring
+          manual input. You can quickly add expenses on the go by selecting the
+          category and entering the amount. This hands-on method helps reinforce
+          good spending habits and ensures you precisely categorize all
+          purchases, including those made with cash.
+        </p>
+      </div>
+    </section>
+  </body>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "DM Sans", sans-serif;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+    }
+    section {
+      background-color: rgb(216, 216, 216);
+      width: 80%;
+      margin: 40px 0px;
+      padding: 30px 30px;
+    }
+    .faq {
+      margin-top: 15px;
+      background-color: rgb(184, 184, 184);
+    }
+    .faq-text {
+      display: none;
+      background-color: rgb(184, 184, 184);
+      padding: 0px 15px 15px 15px;
+    }
+    .show {
+      display: block;
+      width: 95%;
+    }
+    .faq-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+    }
+    .faq-header h3 {
+      width: 80%;
+    }
+    .faq-header p {
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+    .rotated {
+      transform: rotate(-90deg);
+    }
+  </style>
+</html>
