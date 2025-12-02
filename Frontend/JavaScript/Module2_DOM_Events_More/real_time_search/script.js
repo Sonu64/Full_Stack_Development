@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // termsList.innerHTML = "";
 
     const listElements = document.querySelectorAll("li");
-    console.log(listElements);
+    //console.log(listElements);
     listElements.forEach((term) => {
       let lowerCaseTerm = term.textContent.toLowerCase();
       let lowerCaseSearchTerm = searchBox.value.toLowerCase();
