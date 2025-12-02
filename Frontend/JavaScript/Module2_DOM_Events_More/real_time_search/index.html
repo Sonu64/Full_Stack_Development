@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real Time Search</title>
+    <style>
+      .visible {
+        display: list-item;
+      }
+      .hidden {
+        display: none;
+      }
+      ul {
+        list-style-type: disc;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Real Time Search for Tourist Spots in West Bengal</h2>
+    <input
+      type="search"
+      name="searchTerm"
+      id="searchBox"
+      placeholder="Search"
+      autocomplete="off"
+    />
+    <ul id="termsList"></ul>
+  </body>
+  <script src="script.js" type="module"></script>
+</html>
