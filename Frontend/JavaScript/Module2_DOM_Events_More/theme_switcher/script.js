@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector("body").classList.toggle("dark");
       if (currentTheme === "light") {
         sessionStorage.setItem("theme", "dark");
-        btn.innerText = "Switch to Dark Mode";
+        btn.innerText = "Switch to Light Mode";
       } else if (currentTheme === "dark") {
         sessionStorage.setItem("theme", "light");
-        btn.innerText = "Switch to Light Mode";
+        btn.innerText = "Switch to Dark Mode";
       } else return;
     } else {
       sessionStorage.setItem("theme", "light");
-      btn.innerText = "Switch to Light Mode";
+      btn.innerText = "Switch to Dark Mode";
     }
   });
 });
