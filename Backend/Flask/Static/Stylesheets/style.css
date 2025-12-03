@@ -1,4 +1,12 @@
 .red {
   color: red;
-  font-size: 4rem;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+.orange {
+  color: rgb(254, 115, 8);
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: sans-serif;
 }

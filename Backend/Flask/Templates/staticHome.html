@@ -1,30 +1,21 @@
-<!DOCTYPE html>
-
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Static Files Test</title>
-    <!-- Note: We are assuming a CSS file exists for the 'red' class.
-If static_url_path='/' is used, the link would likely be just:
-<link rel="stylesheet" href="/style.css">
-The image path below works because the root is mapped to the Static folder.
--->
-  </head>
-  <body>
-    <h1>Static File Loaded via Root Path</h1>
-    <p>
-      The image loads because the configuration sets the URL path for static
-      files to <code>/</code>, meaning <code>/Images/arthurImage.jpg</code> maps
-      directly to <code>Static/Images/arthurImage.jpg</code>.
-    </p>
-    <img
-      src="/Images/arthurImage.jpg"
-      alt="Arthur Image"
-      height="300"
-      width="500"
-      style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
-    />
-    <p class="red" style="color: red; font-size: 1.25rem">Hello there !</p>
-  </body>
-</html>
+{% extends "base.html" %} {% block title %}Loading Static Filess{% endblock %}
+{% block content %}
+<body>
+  <h1>Static File Loaded via Root Path</h1>
+  <p>
+    The image loads because the configuration sets the URL path for static files
+    to <code>/</code>, meaning <code>/Images/arthurImage.jpg</code> maps
+    directly to <code>Static/Images/arthurImage.jpg</code>.
+  </p>
+  <img
+    src="/Images/arthurImage.jpg"
+    alt="Arthur Image"
+    height="300"
+    width="500"
+    style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)"
+  />
+  <p class="red">Red Text!</p>
+  <p class="orange">Orange Text !</p>
+</body>
+<script src="/Scripts/script.js"></script>
+{% endblock %}
