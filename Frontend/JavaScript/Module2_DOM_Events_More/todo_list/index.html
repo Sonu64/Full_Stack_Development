@@ -3,44 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Figtree:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <script src="script.js"></script>
-    <style>
-      .taskDiv {
-        display: flex;
-        border: 1px solid black;
-        margin-top: 10px;
-        justify-content: space-between;
-        padding: 0px 15px;
-      }
-      .optionsDiv {
-        display: flex;
-        align-items: center;
-      }
-      #editSection {
-        display: none;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css">
     <title>Todo List App</title>
   </head>
   <body>
     <div class="card">
       <h2 class="heading">Todo App</h2>
       <form action="" class="addTodo" id="taskForm">
+        
         <input type="text" name="task" id="taskBox" />
-        <button type="submit" value="Submit"/>Submit</button>
+        <button type="submit" value="Submit"/>Add Task</button>
       </form>
       <section class="list" id="taskListSection">
-        No Tasks
+        <p id="defaultText">No tasks here !</p>
       </section>
     </div>
 
     <div id="editSection">
       <form action="" id="editForm"> 
-        <input type="text" name="task" id="editedTask">
+        <input type="text" name="task" placeholder="Add new Task" id="editedTask">
         <input type="submit" value="Done"> 
       </form>
-      
-
     </div>
   </body>
 </html>

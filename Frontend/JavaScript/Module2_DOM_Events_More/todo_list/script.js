@@ -37,6 +37,7 @@ const renderTasks = (tasksArray) => {
 
 const addTask = (t) => {
   const taskSection = document.querySelector("#taskListSection");
+  document.getElementById("defaultText").style.display = "none";
   // Create div element and put taskName, Done Btn, Edit btn, Delete btn
   const taskDiv = document.createElement("div");
   taskDiv.classList.add("taskDiv");
@@ -78,6 +79,8 @@ const deleteTask = (uniqueID) => {
     (task) => task["id"] !== parseInt(uniqueID)
   );
   localStorage.setItem("allTasks", JSON.stringify(updatedTasks));
+  if (!JSON.parse(localStorage.getItem("allTasks")))
+    document.getElementById("defaultText").style.display = "none";
   console.log(updatedTasks);
   alert("Deleting task with id " + uniqueID);
   const taskToBeDeleted = document.getElementById(uniqueID);
@@ -105,21 +108,41 @@ const taskDone = (uniqueID) => {
       taskParagraph.style.textDecoration = "none";
     }
   });
-  console.log(tasks);
   localStorage.setItem("allTasks", JSON.stringify(tasks));
+  console.log(JSON.parse(localStorage.getItem("allTasks")));
 };
 
-const showEditSection = (uniqueID) => {
+const showEditSection = (oldTaskName, uniqueID) => {
   const editSection = document.getElementById("editSection");
-  // alert(editSection);
+  console.log(editSection);
+  //const oldTaskName = document.getElementById(uniqueID).children[0].innerText;
+  alert(oldTaskName);
   editSection.style.display = "block";
-  const newTaskName = document.getElementById("editedTask").value;
-  editTask(newTaskName, uniqueID);
+  document.getElementById("editedTask").value = oldTaskName;
+  const editForm = document.getElementById("editForm");
+  editForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    // Changing task name in DOM only
+    const newTaskName = document.getElementById("editedTask").value;
+    document.getElementById(uniqueID).children[0].innerText = newTaskName;
+    // Updating tasks in localStorage
+    const tasks = JSON.parse(localStorage.getItem("allTasks"));
+    tasks.forEach((task) => {
+      if (task["id"] === parseInt(uniqueID)) {
+        task["name"] = newTaskName;
+      }
+    });
+    localStorage.setItem("allTasks", JSON.stringify(tasks));
+    console.log(JSON.parse(localStorage.getItem("allTasks")));
+    editSection.style.display = "none";
+  });
+  //editTask(oldTaskName, uniqueID);
 };
 
-const editTask = (taskName, uniqueID) => {
-  //___________________TODO___________________
-};
+// const editTask = (oldTaskName, uniqueID) => {
+//   //___________________TODO___________________
+
+// };
 
 document.addEventListener("DOMContentLoaded", () => {
   const tasks = JSON.parse(localStorage.getItem("allTasks"));
@@ -127,12 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // If tasks doesn't yet exist, create an Empty Array in localStorage
   if (!tasks) {
     //alert("Doesn't Exist");
+    document.getElementById("defaultText").style.display = "block";
     localStorage.setItem("allTasks", JSON.stringify([]));
   }
 
   // If tasks already exists as a key, render them one by one
   else {
     //alert("You have to render all tasks now !");
+    document.getElementById("defaultText").style.display = "none";
     renderTasks(JSON.parse(localStorage.getItem("allTasks")));
   }
 
@@ -162,7 +187,10 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     } else if (event.target.classList.contains("editBtn")) {
       //alert("Editing " + event.target.parentElement.parentElement.id);
-      showEditSection(event.target.parentElement.parentElement.id);
+      showEditSection(
+        event.target.parentElement.parentElement.children[0].innerText,
+        event.target.parentElement.parentElement.id
+      );
     }
   });
 });
