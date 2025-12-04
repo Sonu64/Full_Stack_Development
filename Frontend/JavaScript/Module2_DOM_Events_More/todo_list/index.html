@@ -16,6 +16,9 @@
         display: flex;
         align-items: center;
       }
+      #editSection {
+        display: none;
+      }
     </style>
     <title>Todo List App</title>
   </head>
@@ -29,6 +32,15 @@
       <section class="list" id="taskListSection">
         No Tasks
       </section>
+    </div>
+
+    <div id="editSection">
+      <form action="" id="editForm"> 
+        <input type="text" name="task" id="editedTask">
+        <input type="submit" value="Done"> 
+      </form>
+      
+
     </div>
   </body>
 </html>

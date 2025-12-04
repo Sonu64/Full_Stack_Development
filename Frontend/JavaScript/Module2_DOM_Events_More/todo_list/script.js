@@ -109,9 +109,21 @@ const taskDone = (uniqueID) => {
   localStorage.setItem("allTasks", JSON.stringify(tasks));
 };
 
+const showEditSection = (uniqueID) => {
+  const editSection = document.getElementById("editSection");
+  // alert(editSection);
+  editSection.style.display = "block";
+  const newTaskName = document.getElementById("editedTask").value;
+  editTask(newTaskName, uniqueID);
+};
+
+const editTask = (taskName, uniqueID) => {
+  //___________________TODO___________________
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const tasks = JSON.parse(localStorage.getItem("allTasks"));
-
+  let newTaskEdited = "";
   // If tasks doesn't yet exist, create an Empty Array in localStorage
   if (!tasks) {
     //alert("Doesn't Exist");
@@ -148,6 +160,9 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log(
         "Done task with ID: " + event.target.parentElement.parentElement.id
       );
+    } else if (event.target.classList.contains("editBtn")) {
+      //alert("Editing " + event.target.parentElement.parentElement.id);
+      showEditSection(event.target.parentElement.parentElement.id);
     }
   });
 });
