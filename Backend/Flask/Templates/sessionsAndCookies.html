@@ -1,10 +1,23 @@
 {% extends "base.html" %} {% block title %}Sessions and Cookies{% endblock %} {%
 block content %}
 <body>
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% endwith %}
+
   <h1>Sessions and Cookies</h1>
   <p>{{ msg }}</p>
   <a href="{{ url_for('set_session_data') }}">Set Session Data</a><br /><br />
   <a href="{{ url_for('get_session_data') }}">Get Session Data</a><br /><br />
-  <a href="{{ url_for('clear_session_data') }}">Clear Session Data</a>
+  <a href="{{ url_for('clear_session_data') }}">Clear Session Data</a
+  ><br /><br />
+  <a href="{{ url_for('set_cookie') }}">Set Cookie Data</a><br /><br />
+  <a href="{{ url_for('get_cookie') }}">Get Cookie Data</a><br /><br />
+  <a href="{{ url_for('clear_cookie') }}">Clear Cookies</a>
+  <a href="{{ url_for('login') }}" id="login-btn">Login</a>
 </body>
 {% endblock %}
