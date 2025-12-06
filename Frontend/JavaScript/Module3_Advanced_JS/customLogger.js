@@ -11,6 +11,12 @@ const logger = {
   },
 };
 
-// Calling the methods from the Object Itself
+// Calling the methods from the Object Itself, Independent Calling
 logger.logMsgES5(); // Message to be Logged
 logger.logMsgES6(); // undefined
+
+// Calling the methods after extracting them in a variable
+const extractedES5Method = logger.logMsgES5;
+const extractedES6Method = logger.logMsgES6;
+extractedES5Method(); // undefined, coz now we are calling the method from the Window Object
+extractedES6Method(); // undefined
