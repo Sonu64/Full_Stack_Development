@@ -15,7 +15,7 @@ const logger = {
 logger.logMsgES5(); // Message to be Logged
 logger.logMsgES6(); // undefined
 
-// Calling the methods after extracting them in a variable
+// Calling the methods after extracting them in a variable, Standalone calling
 const extractedES5Method = logger.logMsgES5;
 const extractedES6Method = logger.logMsgES6;
 extractedES5Method(); // undefined, coz now we are calling the method from the Window Object
