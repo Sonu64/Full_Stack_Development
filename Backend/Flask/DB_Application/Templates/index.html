@@ -19,5 +19,8 @@ block content %}
   ><br /><br />
   {% endfor %}
 </ul>
-
+<script type="text/javascript">
+  const DELETE_URL_BASE = "{{ url_for('delete', car_id='PLACEHOLDER') }}";
+</script>
+<!-- <script src="/JS/script.js"></script> -->
 {% endblock %}

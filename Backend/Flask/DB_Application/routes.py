@@ -24,11 +24,14 @@ def register_routes(app, db):
         else:
             return "Invalid Request !"
 
+
+
     @app.route("/delete/<car_id>", methods = ['DELETE'])
     def delete(car_id):
         car_id = int(car_id)
         if req.method == 'DELETE':
             Car.query.filter(Car.id == car_id).delete()
+            db.session.commit()
             cars = Car.query.all()
             return render_template('index.html', cars = cars)
         else:
