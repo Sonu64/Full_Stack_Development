@@ -1,3 +1,5 @@
+// Depiction of CLASSICAL INHERITANCE using Class -> Object system.
+
 class User {
   // User Constructor
   constructor(username, email) {
