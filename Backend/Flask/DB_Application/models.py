@@ -9,4 +9,4 @@ class Car(db.Model):
     engineStrength = db.Column(db.Integer, nullable = False)
     
     def __repr__(self):
-	    return f"Car Brand: {self.brand}, Car Model: {self.model}."
+	    return f"Car ID: {self.id}, Car Brand: {self.brand}, Car Model: {self.model}."

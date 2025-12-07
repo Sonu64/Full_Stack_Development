@@ -1,0 +1,23 @@
+{% extends 'base.html' %} {% block title %}Users Index Page{% endblock %} {%
+block content %}
+<h3>Add a Car</h3>
+<form action="/" method="POST">
+  <input type="text" name="brand" id="brandField" placeholder="Car Brand" />
+  <input type="text" name="model" id="modelField" placeholder="Car Model" />
+  <input
+    type="number"
+    name="engineStrength"
+    id="engineStrengthField"
+    placeholder="Engine Strength"
+  />
+  <input type="submit" value="Create Car" />
+</form>
+<ul>
+  {% for car in cars %}
+  <li>{{car}}</li>
+  <button onclick="deleteCar({{car.id}})">Delete</button
+  ><br /><br />
+  {% endfor %}
+</ul>
+
+{% endblock %}
