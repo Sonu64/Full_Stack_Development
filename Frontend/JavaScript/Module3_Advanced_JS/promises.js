@@ -36,11 +36,16 @@ const someAsyncTask = (username) => {
   });
 };
 
-const userData = someAsyncTask("Sonu")
+const userData = someAsyncTask("Sonu");
+console.log(userData);
+
+userData
   .then((data) => {
+    console.log(".then() starts - ");
     console.log(userData);
     console.log("Successfuly fetched User Data !");
-    console.log(data);
+    //console.log(data);
+    console.log("Printing userData in last line of .then() - ");
     console.log(userData);
   })
   .catch((err) => {
@@ -49,4 +54,5 @@ const userData = someAsyncTask("Sonu")
     console.log(err);
   });
 
+console.log("Below Part is outside .then() or .catch() blocks - ");
 console.log(userData);
