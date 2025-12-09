@@ -1,4 +1,4 @@
-from flask import render_template, request as req
+from flask import render_template, request as req, jsonify, redirect, url_for
 from models import Car
 
 def register_routes(app, db):
@@ -18,9 +18,7 @@ def register_routes(app, db):
                 # Writing to Database
                 db.session.add(carObject)
                 db.session.commit()
-                # Viewing contents back again in index.html
-                cars = Car.query.all()
-                return render_template('index.html', cars = cars)               
+                return redirect(url_for('index')) # Sends GET request to '/' and in the GET request handler above, we render index.html with new Queried Data.           
         else:
             return "Invalid Request !"
 
@@ -36,6 +34,29 @@ def register_routes(app, db):
             return render_template('index.html', cars = cars)
         else:
             return "Invalid Request !"
+        
+        
+        
+    @app.route("/details/<car_id>", methods = ['GET'])
+    def details(car_id):
+        if req.method == 'GET':
+            car = Car.query.get_or_404(car_id)
+            # return car
+            if car:
+                carBrand = car.brand;
+                carModel = car.model;
+                carEngineStrength = car.engineStrength;
+                response = {
+                    'brand':carBrand,
+                    'model':carModel,
+                    'engineStrength':carEngineStrength
+                }
+                return jsonify(response), 200;
+            else:
+                return "404 Error ! Car not found !"
+        else:
+            return "Invalid Response !"
+        
     
 
 
