@@ -29,5 +29,6 @@ getUserInfo("Sonu", (userData) => {
   );
   getAllPosts(userData._id, (posts) => {
     console.log(posts);
+    
   });
 });
