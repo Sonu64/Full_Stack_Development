@@ -39,3 +39,7 @@ console.log(
 ); // 👈 RUNS IMMEDIATELY
 console.log("C. (SYNC) Checking P3 Status immediately:", finalPromise); // 👈 PENDING!
 console.log("D. (SYNC) Program continues..."); // 👈 RUNS IMMEDIATELY
+
+setTimeout(() => {
+  console.log(finalPromise);
+}, 3000);
