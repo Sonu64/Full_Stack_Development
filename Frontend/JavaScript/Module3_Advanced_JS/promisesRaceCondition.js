@@ -19,16 +19,17 @@ const fetchData = (shouldResolve) => {
 // ----------------------------------------------------
 // 2. SYNCHRONOUS SETUP AND ASSIGNMENT
 // ----------------------------------------------------
-const finalPromise = fetchData(false) // P1: Initial Promise // Function body runs and 1st line is printed
+const finalPromise = fetchData(true) // P1: Initial Promise // Function body runs and 1st line is printed
   .then((data) => {
     // This handler runs LATE
     console.log("E. (ASYNC) Inside .then() handler. Data:", data);
     console.log("F. (ASYNC) Check P3 Status:", finalPromise); // 👈👈 STILL PENDING!
-    return data;
+    return `Promise Resolved: ${data}`; // This return value gets assigned to finalPromise's state as resolved.
   })
   .catch((error) => {
     console.log("Error:", error);
     console.log(finalPromise);
+    return `Promise Rejected !`; // This return value gets assigned to finalPromise's state as rejected
   }); // P3: Final Promise (assigned to finalPromise)
 
 // ----------------------------------------------------
@@ -42,4 +43,4 @@ console.log("D. (SYNC) Program continues..."); // 👈 RUNS IMMEDIATELY
 
 setTimeout(() => {
   console.log(finalPromise);
-}, 3000);
+}, 3001);
