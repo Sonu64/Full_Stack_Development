@@ -36,6 +36,7 @@ def create_app():
     def loadUser(userID):
         return User.query.get(userID)
     
+    # Tell Login Manager on what to do if someone unauthorized wants to view @loginrequired Pages
     @loginManager.unauthorized_handler
     def unauthorized_callback():
         return redirect(url_for('login'))
