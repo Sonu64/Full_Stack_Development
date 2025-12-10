@@ -16,6 +16,8 @@ def create_app():
     
     # Creating app Instance -> APP INSTANCE 
     app = Flask(__name__, template_folder='Templates', static_folder='Static', static_url_path='/')
+    
+    # App configuration variables setup
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./testDB.db' #db not yet initialized
     app.secret_key = "MY_SECRET_KEY_@654$"
     
