@@ -1,55 +1,18 @@
-{% extends 'base.html' %} {% block title %}Users Index Page{% endblock %} {%
-block content %}
-<h3>Add a Car</h3>
-<form action="/" method="POST">
-  <input type="text" name="brand" id="brandField" placeholder="Car Brand" />
-  <input type="text" name="model" id="modelField" placeholder="Car Model" />
-  <input
-    type="number"
-    name="engineStrength"
-    id="engineStrengthField"
-    placeholder="Engine Strength"
-  />
-  <input type="submit" value="Create Car" />
-</form>
-<ul>
-  {% for car in cars %}
-  <li>{{car}}</li>
-  <button onclick="deleteCar({{car.id}})">Delete</button>
-  <button onclick="carDetails({{car.id}})">Show Details</button
-  ><br /><br />
-  {% endfor %}
-</ul>
-<section id="detailsSection">
-  <h3>Car Details Asked for</h3>
-  <p>Car Brand:</p>
-  <p>Car Model:</p>
-  <p>Engine Strength: {{ carEngineStrength }}</p>
-</section>
-<script type="text/javascript">
-  /// const DELETE_URL_BASE = "{{ url_for('delete', car_id='PLACEHOLDER') }}";
-  async function carDetails(car_id) {
-    const DETAILS_URL_BASE = "{{ url_for('details', car_id='PLACEHOLDER') }}";
-    const TARGET_URL = DETAILS_URL_BASE.replace("PLACEHOLDER", car_id);
-    alert(TARGET_URL);
-    const res = await fetch(TARGET_URL, { method: "GET" });
-    if (res.ok) {
-      resJSON = await res.json();
-    } else {
-      console.error("ERROR !" + (await res.json()));
-    }
-    const detailsSection = document.getElementById("detailsSection");
-    detailsSection.style.visibility = "visible";
-    detailsSection.children[1].innerText = "Car Brand: " + resJSON.brand;
-    detailsSection.children[2].innerText = "Car Model: " + resJSON.model;
-    detailsSection.children[3].innerText =
-      "Engine Strength: " + resJSON.engineStrength;
-  }
+{% extends 'base.html' %} {% block title %}Home Page{% endblock %} {% block
+content %}
+<h2>Welcome !</h2>
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const detailsSection = document.getElementById("detailsSection");
-    detailsSection.style.visibility = "hidden";
-  });
-</script>
+<a
+  href="{{ url_for('login') }}"
+  style="color: red; font-weight: bold; font-size: 22px"
+  >Login</a
+>
+<br />
+<hr />
+<a
+  href="{{ url_for('signup') }}"
+  style="color: rgb(2, 144, 97); font-weight: bold; font-size: 22px"
+  >Sign Up</a
+>
 
 {% endblock %}

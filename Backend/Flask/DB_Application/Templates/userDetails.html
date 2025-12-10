@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block title %}{{ user.username }}{% endblock %} {%
+block content %}
+<h2>Details of your Profile</h2>
+
+<p>Username: {{ user.username }}</p>
+<p>E-Mail: {{ user.email }}</p>
+<p>Age: {{ user.age }}</p>
+<p>Job: {{ user.job }}</p>
+
+<a href="{{url_for('dashboard')}}">Go Back to Dashboard</a>
+
+{% endblock %}
