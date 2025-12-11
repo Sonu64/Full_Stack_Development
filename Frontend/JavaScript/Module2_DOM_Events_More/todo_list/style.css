@@ -4,48 +4,142 @@
   font-family: "DM Sans", sans-serif;
 }
 
+#defaultText {
+  margin-top: 50px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #4fe5ff;
+}
+
 .taskDiv {
   display: flex;
-  border: 1px solid black;
-  margin-top: 10px;
+  border-bottom: 2px solid black;
   justify-content: space-between;
-  padding: 0px 15px;
+  padding: 15px 30px;
+  width: 100%;
+  /* background-color: red; */
 }
 .optionsDiv {
   display: flex;
   align-items: center;
+  gap: 5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.optionsDiv button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 22px;
 }
 #editSection {
-  display: none;
+  display: none; /* Hidden by default */
+  position: absolute;
+  z-index: 1; /* Sit on top */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  /* overflow: auto; Enable scroll if needed */
+  background-color: rgb(78, 77, 77); /* Fallback color */
+  border-radius: 14px;
+}
+
+section.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(234, 234, 234);
+}
+
+.active form {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  border-radius: 14px;
+  gap: 30px;
+  align-items: center;
+  margin-top: 0px;
+  background-color: #4f5054;
+}
+
+.active form h2 {
+  width: 100%;
+}
+
+.active form input[type="text"] {
+  width: 80%;
+  margin-bottom: 25px;
+  padding: 10px 10px;
+  margin-top: 30px;
+  font-size: 1.2rem;
+  background-color: #c2c2c200;
+  border-color: white;
+  border-top: 0px;
+  border-bottom: 3px solid rgb(203, 202, 202);
+  border-left: 0px;
+  border-right: 0px;
+  color: white;
+}
+
+.active form input[type="submit"] {
+  width: 20%;
+  padding: 6px 0px;
+  background-color: rgb(0, 170, 127);
+  color: white;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  font-size: 1.3rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.4s ease;
 }
 
 body {
   height: 100vh;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
+  background-color: rgb(49, 48, 48);
 }
 
 .card {
-  background-color: rgb(255, 255, 255);
+  background-color: #4f5054;
+  /* You had width set twice, keeping the first */
   width: 45%;
+
+  /* Flex properties - Essential for the fix */
   display: flex;
   flex-direction: column;
-  /* justify-content: space-evenly; */
-  /* height: 60vh;
-  max-height: 60vh; */
-  margin: 40px 0px;
+  /* Centered it horizontally for better layout */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 14px;
+
+  /* Fixed Height - Essential for the fix */
+  height: 70vh;
+  max-height: 800px;
+  margin-top: 90px;
 }
 
 .heading {
-  background-color: rgb(228, 239, 239);
+  background-color: #dc5f00;
   text-align: center;
-  padding: 10px 0px;
+  padding: 15px 0px;
+  color: white;
+  font-size: 1.5rem;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  margin-bottom: 0px;
 }
 
 #taskForm {
-  background-color: rgb(212, 212, 212);
+  background-color: #373a40db;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,16 +150,26 @@ body {
 
 #taskForm input {
   width: 60%;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   padding: 10px 10px;
-  border: 2px solid black;
-  border-radius: 3px;
+  /* border: 2px solid black; */
   font-size: 1.2rem;
+  background-color: #c2c2c200;
+  border-color: white;
+  border-top: 0px;
+  border-bottom: 3px solid rgb(203, 202, 202);
+  border-left: 0px;
+  border-right: 0px;
+  color: white;
+}
+
+input:focus {
+  outline: none;
 }
 #taskForm button {
-  width: 30%;
+  width: 28%;
   padding: 10px 0px;
-  background-color: rgb(0, 97, 194);
+  background-color: rgb(1, 128, 255);
   color: white;
   outline: none;
   border: none;
@@ -76,13 +180,60 @@ body {
   transition: 0.4s ease;
 }
 #taskForm button:hover {
-  background-color: rgb(0, 87, 174);
+  background-color: rgb(1, 101, 200);
 }
 #taskForm button:active {
   box-shadow: none;
 }
 
 #taskListSection {
-  background-color: cadetblue;
+  color: white;
+  font-size: 1rem;
+
+  /* 🛑 REMOVE THIS - It stops flex-grow from working */
+  /* height: fit-content; */
+
+  /* Keep these if you want the tasks listed vertically */
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  /* Keep the scroll and remove the duplicate */
   overflow-y: scroll;
+  scrollbar-color: #4f5054 rgb(48, 48, 48);
+  /* Remove justify-content: center; if you want tasks to start at the top */
+  /* justify-content: center; */
+  /* margin-top: 15px; */
+  padding-right: 0px;
+
+  /* Set min-height to 0 to prevent issues in some browsers */
+  min-height: 0;
+  margin-bottom: 15px;
+  width: 100%;
+  align-items: center;
+}
+#taskListSection p {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#editSectionOptions {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
+
+#closeEditSectionBtn {
+  width: 20%;
+  padding: 6px 0px;
+  background-color: rgb(255, 51, 0);
+  color: white;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  font-size: 1.3rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.4s ease;
 }
