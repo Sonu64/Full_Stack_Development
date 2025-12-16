@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block title %}Todo App Homepage{% endblock %} {%
+block content %}
+<h2>Todo App Homepage</h2>
+
+<ul>
+  {% for todo in todos %}
+  <li>Task Name: {{ todo.title }}, Task Status: {{ todo.status }}</li>
+  {% endfor %}
+</ul>
+
+<div>
+  <a href="{{ url_for('todos.create') }}">Create Todo</a>
+</div>
+<br /><br />
+<div>
+  <a href="{{ url_for('people.index') }}">Go to Persons App</a>
+  <a href="{{ url_for('core.index') }}">Back to Homepage</a>
+</div>
+
+{% endblock %}

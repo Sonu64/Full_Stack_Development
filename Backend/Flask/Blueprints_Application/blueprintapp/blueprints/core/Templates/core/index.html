@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block title %} Core Homepage {% endblock %} {%
+block content %}
+<h2>Main App Landing Page</h2>
+
+<a href="{{url_for('todos.index')}}">Todos App</a>
+<a href="{{url_for('people.index')}}">Persons App</a>
+
+{% endblock %}

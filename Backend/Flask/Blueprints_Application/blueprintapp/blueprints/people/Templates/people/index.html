@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block title %}People App Homepage{% endblock %} {%
+block content %}
+<h2>People App Homepage: Listing all Persons</h2>
+
+<ul>
+  {% for person in people %}
+  <li>Name: {{ person.name }}, Job: {{ person.job}}</li>
+  {% endfor %}
+</ul>
+
+<div>
+  <a href="{{ url_for('people.create') }}">Create a Person</a>
+</div>
+<br /><br />
+<div>
+  <a href="{{ url_for('todos.index') }}">Go to Todos App</a>
+  <a href="{{ url_for('core.index') }}">Back to Homepage</a>
+</div>
+
+{% endblock %}
