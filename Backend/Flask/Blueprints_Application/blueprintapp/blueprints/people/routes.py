@@ -13,9 +13,6 @@ def index():
 
 
 
-
-
-
 @people.route("/create", methods = ['GET', 'POST'])
 def create():
     if req.method == 'GET':

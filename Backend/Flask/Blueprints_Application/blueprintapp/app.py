@@ -10,10 +10,8 @@ db = SQLAlchemy()
 def create_app():
     # Creating App instance
     app = Flask(__name__, template_folder = 'Templates')
-    
     # Setting up app config
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///./blueprints.db"
-    
     # Connecting app and db, for CRUD operations
     db.init_app(app)
     
@@ -24,8 +22,8 @@ def create_app():
     from blueprintapp.blueprints.todos.routes import todos
     from blueprintapp.blueprints.people.routes import people 
     
-    #todos is a Blueprint, people is a Blueprint
-    # Registration
+    # core is a Blueprint, todos is a Blueprint, people is a Blueprint
+    # Registration of those Blueprints with app
     app.register_blueprint(core, url_prefix = '/')
     app.register_blueprint(todos, url_prefix = "/todos")
     app.register_blueprint(people, url_prefix = "/people")
