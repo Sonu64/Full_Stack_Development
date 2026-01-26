@@ -43,3 +43,36 @@ console.log(null);
 const id1 = Symbol("userId");
 const id2 = Symbol("userId");
 console.log(id1 == id2); // false
+
+/** NON-PRIMITIVE DATA TYPES ----> Generally all are of type OBJECT, though it may show differently ! */
+// array
+const arr = [1, 2, 3, undefined, null, "Sonu", true];
+console.log(arr);
+// objects
+const profile = {
+  name: "Sourakanti",
+  age: 23,
+  tech: "Full-Stack Robitics",
+  loggedIn: true,
+};
+if (profile["loggedIn"]) console.log(profile["name"] + " is Logged In !");
+// function
+const f = function myFunc() {
+  console.log("Hello, Javascript !");
+};
+f();
+
+// typeof operator
+console.log(
+  typeof 34,
+  typeof 67.89,
+  typeof true,
+  typeof f, // function, but under the hood this is also Object like all other non-primitive types.
+  typeof myFunc, // undefined as does not return anything
+  typeof undefined,
+  typeof myBigInteger,
+  typeof null, // BUG !! Gives object but should be null 🤣
+  typeof id1,
+  typeof profile,
+  typeof arr, // Array is also OBJECT ⚠️
+);
