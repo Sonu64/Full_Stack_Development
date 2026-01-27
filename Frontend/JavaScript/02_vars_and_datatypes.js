@@ -76,3 +76,31 @@ console.log(
   typeof profile,
   typeof arr, // Array is also OBJECT ⚠️
 );
+
+/** CONCEPT OF immutability AND mutability */
+/* PRIMITIVE TYPES --> IMMUTABLE !, PASSED BY VALUE */
+let first = 15;
+first = 20; // New memory block assigned and 20 put inside it, now first points to this memory block
+let second = first; // Passed by Value, By default Deep copy, changes in one var won't affect the other
+second = second + 20; // this does not affect first
+console.log(`first = ${first}, second = ${second}`);
+let name = "Sonu";
+name[0] = "M"; // name does not change ! ⁉️because name can be reassigned, but not changed in place, though it throws no Error.
+console.log(`Changed name = ${name} ! Does not change !`); // Not Monu !
+name = "Monu"; // Reassign works
+console.log(`Reassigned name = ${name} ! Changes !`);
+
+/* NON-PRIMITIVE TYPES --> MUTABLE ! PASSED BY REFERENCE */
+let obj1 = {
+  name: "Sonu",
+  age: 23,
+  email: "sonu@email.com",
+};
+obj1["name"] = "Hanuman"; // works, because these are mutable, values change in place
+console.log(obj1);
+let obj2 = obj1; // Passed by reference, Shallow copied, one change affects the other !
+obj2["email"] = "changedEmail@outlook.com";
+console.log(obj1); // email changed as passed by ref to obj2!
+console.log(obj2); // email changed as we did it !
+
+// Primitives are copied by value, while Non-primitives are copied by reference.
