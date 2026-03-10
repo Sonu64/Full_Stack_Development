@@ -125,7 +125,7 @@ function counter() {
 
 const increment1 = counter(); // Though the line is done, the counter variable and all the outer-function things stay alive in the memory because the returned function (the inner function) has a reference to it, so it forms a closure. So increment1 has access to count variable and can modify it.
 const increment2 = counter();
-increment(); // Count: 1
-increment(); // Count: 2
-increment1(); // Count: 1 (increment1 has its own closure with count = 0)
+increment1(); // Count: 1
+increment1(); // Count: 2
 increment2(); // Count: 1 (increment2 has its own closure with count = 0)
+increment2(); // Count: 2 (increment2 has its own closure with count = 0)
