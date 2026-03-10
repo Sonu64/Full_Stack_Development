@@ -1,0 +1,1 @@
+console.log("Hoisting already covered in 01_Basics.js, we'll skip this for now !");
