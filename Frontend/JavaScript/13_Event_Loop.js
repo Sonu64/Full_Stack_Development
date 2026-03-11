@@ -3,7 +3,21 @@
 // Single Thread in action 
 // 1. Open the Google Search page and run a for loop that counts to 1 billion in the console. You will see that the page becomes unresponsive until the loop finishes. This is because JavaScript is single-threaded and the loop is blocking the main thread.
 
-// 2 Now, if we create event listeners for 3 buttons, JS alone can't listen to all those events at the same time. Similarly, if we have 2 setTimeOuts 1 for 5s and other for 6s...if JS simply waited, output would come first after 5s are done...then again it waits for 6 seconds and then that output comes. So practically, it would take 5+6=11 seconds to get both outputs. But in reality, we get the first output after 5 seconds and the second output after 6 seconds. What's the magic behind this as we know that JS can't do multiple things at same time...it can't count for both the timers !!! Who is the WIZARD sitting behind ? Web APIs contain all those Async functions... and the Web APIS are given by browser and the browser is multithreaded and it can manage multiple counters at once.... and The EVENT LOOP comes as the main Hero of our story !!!!!!!!
+// 2 Now, if we create event listeners for 3 buttons, JS alone can't listen to all those events at the same time. Similarly, if we have 2 setTimeOuts 1 for 5s and other for 6s...if JS simply waited, output would come first after 5s are done...then again it waits for 6 seconds and then that output comes. So practically, it would take 5+6=11 seconds to get both outputs. But in reality, we get the first output after 5 seconds and the second output after 6 seconds. What's the magic behind this as we know that JS can't do multiple things at same time...it can't count for both the timers !!! Who is the WIZARD sitting behind ? Web APIs contain all the functions given by Browser or Node.js... and the Web APIS are given by browser and the browser is multithreaded and it can manage multiple counters at once.... and The EVENT LOOP comes as the main Hero of our story, it only handles those WebAPIS which are Async in nature !!!!!!!!
+
+
+
+// 1. The Confusion: "If it's a Web API, isn't it Async?"
+// Not necessarily. The term "Web API" just means "tools provided by the environment (browser) that are not part of the core JavaScript language."
+
+// Async Web APIs: setTimeout, fetch, promises. These are sent to the "side office" and handled via the Callback Queue.
+
+// Sync Web APIs: console.log, alert(), localStorage.getItem(). These are provided by the browser, but they execute immediately on the Call Stack. They "block" the next line of code until they finish. So, while they are Web APIs, they are not asynchronous. They run synchronously on the main thread. The Event Loop only manages the asynchronous tasks that are offloaded to the Web APIs and then pushed to the Callback Queue. Synchronous Web API calls are executed directly on the Call Stack and do not involve the Event Loop.
+
+
+
+
+
 
 
 // the individual timers are handled by the browser's Web APIs, registering them and counting down independently. 
