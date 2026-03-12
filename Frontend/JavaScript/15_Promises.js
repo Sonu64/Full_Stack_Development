@@ -233,3 +233,57 @@ paymentPromise()
 
 
 
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// setTimeout(() => console.log('Timer'), 0); -----> MacroTask Queue
+
+// Promise.resolve().then(() => {
+// console.log('Promise 1');
+// Promise.resolve().then(() => console.log('Promise 2'));
+// })
+
+// Once entire Microtask is finished,all the outputs of microTasks are printed, and then the event loop checks the MacroTask Queue and executes the next task there, which is the setTimeout callback in this case. So the output will be:
