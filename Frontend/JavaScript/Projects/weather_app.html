@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-950 min-h-screen flex items-center justify-center p-2">
+
+    <main class="bg-slate-900 border border-slate-800 text-white w-full max-w-[320px] rounded-2xl shadow-2xl overflow-hidden scale-95 sm:scale-100">
+        
+        <header class="p-4 pb-0">
+            <h1 class="text-[10px] font-bold tracking-[0.2em] text-slate-500 uppercase mb-3 text-center">SkyScan Pro</h1>
+            <div class="relative flex items-center">
+                <input type="text" id="cityInput" placeholder="City name..." 
+                    class="w-full bg-slate-800/50 border border-slate-700 rounded-xl py-2 px-4 text-sm outline-none focus:ring-1 focus:ring-emerald-500 transition-all placeholder:text-slate-600">
+                <button id="searchBtn" class="absolute right-1.5 bg-emerald-500 hover:bg-emerald-600 text-white px-3 py-1 rounded-lg text-xs transition-colors font-bold">
+                    GO
+                </button>
+            </div>
+        </header>
+
+        <section id="weatherDisplay" class="p-4 pt-2">
+            
+            <div class="text-center my-4">
+                <div id="weatherIcon" class="text-5xl mb-1">🌤️</div>
+                <h2 id="cityName" class="text-xl font-bold truncate px-2">---</h2>
+                <div class="flex justify-center items-baseline gap-0.5">
+                    <span id="temp" class="text-5xl font-black tracking-tighter">--</span>
+                    <span class="text-lg font-bold text-emerald-400">°</span>
+                </div>
+                <p id="condition" class="text-xs text-slate-500 capitalize italic">Awaiting Signal...</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+                <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
+                    <span class="text-[9px] text-slate-500 uppercase font-black">Humidity</span>
+                    <span id="humidity" class="text-sm font-bold">--%</span>
+                </div>
+                <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
+                    <span class="text-[9px] text-slate-500 uppercase font-black">Wind</span>
+                    <span id="wind" class="text-sm font-bold">-- <small class="text-[10px]">km/h</small></span>
+                </div>
+                <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
+                    <span class="text-[9px] text-slate-500 uppercase font-black">Pressure</span>
+                    <span id="pressure" class="text-sm font-bold">--</span>
+                </div>
+                <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
+                    <span class="text-[9px] text-slate-500 uppercase font-black">Visibility</span>
+                    <span id="visibility" class="text-sm font-bold">--</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-2 text-center border-t border-slate-800/50">
+            <p id="statusMsg" class="text-[10px] text-slate-600 font-bold uppercase tracking-widest">Built with 💖 by Sonu</p>
+        </footer>
+    </main>
+
+    <script>
+        // Use this Mock Data function to test your DOM logic immediately!
+        async function getMockData() {
+            const API_KEY = "8313e9397d477560c4071df640d6a1fe"; // Replace with your actual API key
+            const city = document.getElementById('cityInput').value.trim();
+            if (!city) {
+                alert("Please enter a city name!");
+                return;
+            }
+            const connectionString = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+            
+            const data = await fetch(connectionString)
+            const jsonData = await data.json();
+            return jsonData;
+        }
+
+        const btn = document.getElementById('searchBtn');
+        btn.addEventListener('click', async () => {
+            
+            // For now, we will use mock data to test our UI
+            const data = await getMockData();
+            updateWeatherDisplay(data);
+        });
+
+        function updateWeatherDisplay(data) {
+            console.log(data);
+            // Update the DOM elements with the fetched weather data
+            document.getElementById('visibility').textContent = `${data.visibility / 1000} km`;
+            document.getElementById('wind').textContent = `${data.wind.speed} km/h`;
+            document.getElementById('condition').textContent = data.weather[0].main;
+            document.getElementById('pressure').textContent = `${data.main.pressure} hPa`;
+            document.getElementById('humidity').textContent = `${data.main.humidity}%`;
+            document.getElementById('temp').innerHTML = `${Math.round(data.main.temp)}&nbsp;<sup class="text-lg">°C</sup>`;
+        }
+
+
+    </script>
+</body>
+</html>
