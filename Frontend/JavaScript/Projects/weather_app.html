@@ -21,7 +21,7 @@
             </div>
         </header>
 
-        <section id="weatherDisplay" class="p-4 pt-2">
+        <section id="weatherDisplay" class="p-4 pt-2 opacity-0 transition-opacity duration-1000 h-0 overflow-hidden" >
             
             <div class="text-center my-4">
                 <div id="weatherIcon" class="text-5xl mb-1">🌤️</div>
@@ -214,6 +214,10 @@ async function updateWeatherDisplay(info, gpsEnabled) {
 	document.getElementById('wind').innerHTML = info.wind || "";
 	document.getElementById('pressure').textContent = info.pressure || "";
 	document.getElementById('visibility').textContent = info.visibility || "";
+    // This triggers the fade-in effect
+    document.getElementById('weatherDisplay').classList.remove('opacity-0');
+    document.getElementById('weatherDisplay').classList.remove('h-0');
+
 }
 
     </script>
