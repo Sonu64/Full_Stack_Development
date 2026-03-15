@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <title>Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
@@ -24,10 +25,10 @@
             
             <div class="text-center my-4">
                 <div id="weatherIcon" class="text-5xl mb-1">🌤️</div>
-                <h2 id="cityName" class="text-xl font-bold truncate px-2">---</h2>
+                <h2 id="cityName" class="text-xl font-bold truncate px-2"> </h2>
                 <div class="flex justify-center items-baseline gap-0.5">
-                    <span id="temp" class="text-4xl font-black tracking-tighter">--</span>
-                    <sup class="text-lg">°C</sup>
+                    <span id="temp" class="text-4xl font-black tracking-tighter"> </span>
+                    
                 </div>
                 <p id="condition" class="text-medium italic text-sky-500 capitalize font-bold">Awaiting Signal...</p>
             </div>
@@ -35,19 +36,19 @@
             <div class="grid grid-cols-2 gap-2">
                 <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
                     <span class="text-[9px] text-slate-500 uppercase font-black">Humidity</span>
-                    <span id="humidity" class="text-sm font-bold">--%</span>
+                    <span id="humidity" class="text-sm font-bold"> </span>
                 </div>
                 <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
                     <span class="text-[9px] text-slate-500 uppercase font-black">Wind</span>
-                    <span id="wind" class="text-sm font-bold">-- <small class="text-[10px]">km/h</small></span>
+                    <span id="wind" class="text-sm font-bold"><small class="text-[10px]"> </small></span>
                 </div>
                 <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
                     <span class="text-[9px] text-slate-500 uppercase font-black">Pressure</span>
-                    <span id="pressure" class="text-sm font-bold">--</span>
+                    <span id="pressure" class="text-sm font-bold"></span>
                 </div>
                 <div class="bg-slate-800/30 p-2 rounded-xl border border-slate-800/50 flex flex-col items-center">
                     <span class="text-[9px] text-slate-500 uppercase font-black">Visibility</span>
-                    <span id="visibility" class="text-sm font-bold">--</span>
+                    <span id="visibility" class="text-sm font-bold"></span>
                 </div>
             </div>
         </section>
@@ -92,21 +93,15 @@
             const jsonData = await data.json();
             if (jsonData.cod !== 200) {
                 alert("City not found! Please check the name and try again.");
-                updateWeatherDisplay({
-                    visibility: 0,
-                    wind: {
-                        speed: 0
-                    },
-                    weather: [{
-                        main: "N/A"
-                    }],
-                    main: {
-                        pressure: 0,
-                        humidity: 0,
-                        temp: 0
-                    },
-                    name: ""
-                });
+                // Send an empty object so the display function uses its fallbacks
+                fillWeatherInfo({
+                    visibility: undefined,
+                    wind: { speed: undefined },
+                    weather: [{ main: "Error" }],
+                    main: { pressure: undefined, humidity: undefined, temp: undefined },
+                    name: undefined
+                }, true); 
+                return null;
             }
             return jsonData;
         }
@@ -145,15 +140,19 @@
 
         async function fillWeatherInfo(data, isManualSearch) {
             let gpsEnabled = false;
+            // Helper function to check if a value exists
+    const hasData = (val) => val !== undefined && val !== null;
+
             let weatherInfo = {
-                visibility: `${data.visibility / 1000} km`,
-                wind: `${data.wind.speed} km/h`,
-                condition: data.weather[0].main,
-                pressure: `${data.main.pressure} hPa`,
-                humidity: `${data.main.humidity}%`,
-                temp: `${Math.round(data.main.temp)}`,
+                // Only add units if the value actually exists
+                visibility: hasData(data.visibility) ? `${data.visibility / 1000} km` : undefined,
+                wind: hasData(data.wind?.speed) ? `${data.wind.speed} km/h` : undefined,
+                condition: data.weather?.[0]?.main,
+                pressure: hasData(data.main?.pressure) ? `${data.main.pressure} hPa` : undefined,
+                humidity: hasData(data.main?.humidity) ? `${data.main.humidity}%` : undefined,
+                temp: hasData(data.main?.temp) ? Math.round(data.main.temp).toString() : "NaN",
                 city: data.name,
-             };
+            };
             if (data.name && !isManualSearch) {
                 const districtString = `https://api.postalpincode.in/postoffice/${data.name}`;
                 let districtData = await fetch(districtString);
@@ -188,15 +187,24 @@
                 "Squall": "💨",
                 "Tornado": "🌪️"
             };
-            document.getElementById('weatherIcon').textContent = icons[info.condition] || "🌤️";
-            document.getElementById('cityName').textContent = info.city || "Unknown Location";
-            document.getElementById('cityInput').value = info.city;
-            document.getElementById('temp').textContent = info.temp;
-            document.getElementById('condition').textContent = info.condition;
-            document.getElementById('humidity').textContent = info.humidity;
-            document.getElementById('wind').textContent = info.wind;
-            document.getElementById('pressure').textContent = info.pressure;
-            document.getElementById('visibility').textContent = info.visibility;
+
+            if (info.city === undefined) {
+                document.getElementById('cityInput').value = "";
+            }
+            else {
+                document.getElementById('cityInput').value = info.city;
+            }
+            
+
+            // 1. Text Content fallbacks (Use || here)
+            document.getElementById('weatherIcon').textContent = icons[info.condition] || "❓";
+            document.getElementById('cityName').textContent = info.city || "";
+            document.getElementById('temp').innerHTML = info.temp ? `${info.temp}<sup>°C</sup>` : "";
+            document.getElementById('condition').textContent = info.condition || "Unknown";
+            document.getElementById('humidity').textContent = info.humidity || "";
+            document.getElementById('wind').innerHTML = info.wind || "";
+            document.getElementById('pressure').textContent = info.pressure || "";
+            document.getElementById('visibility').textContent = info.visibility || "";
         }
 
     </script>
