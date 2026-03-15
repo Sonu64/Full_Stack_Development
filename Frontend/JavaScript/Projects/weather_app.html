@@ -26,10 +26,10 @@
                 <div id="weatherIcon" class="text-5xl mb-1">🌤️</div>
                 <h2 id="cityName" class="text-xl font-bold truncate px-2">---</h2>
                 <div class="flex justify-center items-baseline gap-0.5">
-                    <span id="temp" class="text-5xl font-black tracking-tighter">--</span>
+                    <span id="temp" class="text-4xl font-black tracking-tighter">--</span>
                     <sup class="text-lg">°C</sup>
                 </div>
-                <p id="condition" class="text-xs text-slate-500 capitalize italic">Awaiting Signal...</p>
+                <p id="condition" class="text-medium italic text-sky-500 capitalize font-bold">Awaiting Signal...</p>
             </div>
 
             <div class="grid grid-cols-2 gap-2">
@@ -72,14 +72,14 @@
 
                 const locationData = await fetch(locationConnectionString);
                 const locationJsonData = await locationData.json();
-                updateWeatherDisplay(locationJsonData);
+                fillWeatherInfo(locationJsonData);
 
             } catch (error) {
                 console.error("Error fetching coordinates:", error);
             }
         });
 
-        async function getMockData() {
+        async function getWeatherData() {
             // Replace with your actual API key
             const city = document.getElementById('cityInput').value.trim();
             if (!city) {
@@ -108,7 +108,6 @@
                     name: ""
                 });
             }
-
             return jsonData;
         }
 
@@ -139,39 +138,66 @@
         const btn = document.getElementById('searchBtn');
         btn.addEventListener('click', async () => {
             // For now, we will use mock data to test our UI
-            const data = await getMockData();
-            updateWeatherDisplay(data);
+            const data = await getWeatherData();
+            fillWeatherInfo(data, isManualSearch = true);
         });
 
 
-        async function updateWeatherDisplay(data) {
-            console.log(data);
-            // Update the DOM elements with the fetched weather data
-            document.getElementById('visibility').textContent = `${data.visibility / 1000} km`;
-            document.getElementById('wind').textContent = `${data.wind.speed} km/h`;
-            document.getElementById('condition').textContent = data.weather[0].main;
-            document.getElementById('pressure').textContent = `${data.main.pressure} hPa`;
-            document.getElementById('humidity').textContent = `${data.main.humidity}%`;
-            document.getElementById('temp').innerHTML = `${Math.round(data.main.temp)}`;
-
-
-            if (data.name) {
+        async function fillWeatherInfo(data, isManualSearch) {
+            let gpsEnabled = false;
+            let weatherInfo = {
+                visibility: `${data.visibility / 1000} km`,
+                wind: `${data.wind.speed} km/h`,
+                condition: data.weather[0].main,
+                pressure: `${data.main.pressure} hPa`,
+                humidity: `${data.main.humidity}%`,
+                temp: `${Math.round(data.main.temp)}`,
+                city: data.name,
+             };
+            if (data.name && !isManualSearch) {
                 const districtString = `https://api.postalpincode.in/postoffice/${data.name}`;
                 let districtData = await fetch(districtString);
                 districtData = await districtData.json();
                 // If exact District can't be found, we will just show the sub-city/village name from the weather API
                 // In case the API totally fails, we will show the city name from the weather API as well, that's why we wrote districtData !== undefined, to avoid the error of trying to access the Status property of an undefined variable
-                if (districtData && districtData[0].Status === "Error") {
-                    document.getElementById('cityInput').value = data.name;
+                if (districtData && districtData[0].Status !== "Error") {
+                    if (districtData && districtData[0].PostOffice && districtData[0].PostOffice.length > 0) {
+                        weatherInfo.city = districtData[0].PostOffice[0].District;
+                    }
                 }
-                else {
-                    document.getElementById('cityInput').value = districtData[0].PostOffice[0].District;
-                }
-            } else {
-                document.getElementById('cityInput').value = data.name;
-            }
+            } 
+            updateWeatherDisplay(weatherInfo, gpsEnabled);
         }
 
+        async function updateWeatherDisplay(info, gpsEnabled) {
+            console.log("info: ------------ \n", info);
+            icons = {
+                "Clear": "☀️",
+                "Clouds": "☁️",
+                "Rain": "🌧️",
+                "Drizzle": "🌦️",
+                "Thunderstorm": "⛈️",
+                "Snow": "❄️",
+                "Mist": "🌫️",
+                "Smoke": "💨",
+                "Haze": "🌫️",
+                "Dust": "💨",
+                "Fog": "🌫️",
+                "Sand": "💨",
+                "Ash": "💨",
+                "Squall": "💨",
+                "Tornado": "🌪️"
+            };
+            document.getElementById('weatherIcon').textContent = icons[info.condition] || "🌤️";
+            document.getElementById('cityName').textContent = info.city || "Unknown Location";
+            document.getElementById('cityInput').value = info.city;
+            document.getElementById('temp').textContent = info.temp;
+            document.getElementById('condition').textContent = info.condition;
+            document.getElementById('humidity').textContent = info.humidity;
+            document.getElementById('wind').textContent = info.wind;
+            document.getElementById('pressure').textContent = info.pressure;
+            document.getElementById('visibility').textContent = info.visibility;
+        }
 
     </script>
 </body>
