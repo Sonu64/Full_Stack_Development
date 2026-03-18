@@ -1,2 +1,2 @@
 # Full_Stack_Development
-My Spring Boot Full Stack Dev Repo.
+My Front-end Development Repo currently containing HTML, CSS, TailwindCSS and React Learnings.
