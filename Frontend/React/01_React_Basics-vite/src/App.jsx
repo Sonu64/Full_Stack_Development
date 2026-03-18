@@ -1,8 +1,13 @@
-function App() {
+import MyName from "./MyName.jsx";
 
+// Empty HTML tags are fragments, Components can only return 1 Fragment. Multiple elements within that fragment does not matter until and unless the elements exist outside of the fragment independently !
+function App() {
   return (
-    <h1>Hello, React! Vite got you this time !</h1>
-  )
+    <>
+      <MyName />
+      <h1>An H1 !</h1>
+    </>
+  );
 }
 
-export default App
+export default App;
