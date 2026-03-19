@@ -4,6 +4,7 @@ import App from './App.jsx'
 import MyName from './MyName.jsx'
 import React from 'react'
 
+const renderedString = "This is a Rendered String !";
 
 const reactElement = {
   type: "a",
@@ -12,16 +13,18 @@ const reactElement = {
     target: "_blank",
   },
   children: "Click Me to Visit Google !",
+  
 };
 
 const actualReactElement = React.createElement(
   // tagname goes first
   "a",
   // then goes the props object
-  {href:"https://google.com", target:"_blank", style: { color: "red" }},
-  // Direct text to be displayed goes next 
-  "Click Me to Visit Google !"
-)
+  { href: "https://google.com", target: "_blank", style: { color: "red" } },
+  // Direct text to be displayed goes next
+  "Click Me to Visit Google !",
+  renderedString,
+);
 
 
 createRoot(document.getElementById("root")).render(
